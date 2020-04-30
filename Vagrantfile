@@ -4,7 +4,7 @@
 
 Vagrant.configure("2") do |config|
 
-    config.vm.box = "ubuntu/trusty64"
+    config.vm.box = "ubuntu/bionic64"
     config.ssh.forward_agent = true
     # eth1, this will be the endpoint
     config.vm.network :private_network, ip: "192.168.27.100"
@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
         ansible.verbose = "v"
     end
     config.vm.provision :shell, :inline => "cd devstack; sudo -u vagrant env HOME=/home/vagrant ./stack.sh"
-    config.vm.provision :shell, :inline => "ovs-vsctl add-port br-ex eth2"
+    config.vm.provision :shell, :inline => "ovs-vsctl add-port br-ex enp0s9"
     config.vm.provision :shell, :inline => "virsh net-destroy default"
 
 end
